@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Asantibanez\LivewireCharts\Models;
 
 /**
  * Class AreaChartModel
- * @package Asantibanez\LivewireCharts\Models
  */
 class AreaChartModel extends BaseChartModel
 {
@@ -57,6 +55,7 @@ class AreaChartModel extends BaseChartModel
             'color' => $this->color,
             'onPointClickEventName' => $this->onPointClickEventName,
             'data' => $this->data->toArray(),
+            'config' => config('livewire-charts'),
         ]);
     }
 

@@ -8,12 +8,11 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
-
     protected function getPackageProviders($app)
     {
         return [
             LivewireServiceProvider::class,
-            LivewireChartsServiceProvider::class
+            LivewireChartsServiceProvider::class,
         ];
     }
 
@@ -21,5 +20,4 @@ class TestCase extends BaseTestCase
     {
         $app['config']->set('app.key', 'base64:Hupx3yAySikrM2/edkZQNQHslgDWYfiBfCuSThJ5SK8=');
     }
-
 }

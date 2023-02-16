@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Asantibanez\LivewireCharts\Models;
-
 
 trait HasDataLabels
 {
@@ -15,7 +13,7 @@ trait HasDataLabels
         return $this;
     }
 
-    public function withDataLabels()
+    public function withDataLabels($option = [])
     {
         data_set($this->dataLabels, 'enabled', true);
 

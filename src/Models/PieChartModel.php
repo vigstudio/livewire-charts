@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Asantibanez\LivewireCharts\Models;
 
 /**
  * Class PieChartModel
- * @package Asantibanez\LivewireCharts\Models
  */
 class PieChartModel extends BaseChartModel
 {
@@ -70,6 +68,7 @@ class PieChartModel extends BaseChartModel
             'opacity' => $this->opacity,
             'type' => $this->type,
             'data' => $this->data->toArray(),
+            'config' => config('livewire-charts'),
         ]);
     }
 

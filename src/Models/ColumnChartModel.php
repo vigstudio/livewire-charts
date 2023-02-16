@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Asantibanez\LivewireCharts\Models;
 
 /**
  * Class ColumnChartModel
- * @package Asantibanez\LivewireCharts\Models
- * @property boolean $isMultiColumn
- * @property boolean $isStacked
+ *
+ * @property bool $isMultiColumn
+ * @property bool $isStacked
  */
 class ColumnChartModel extends BaseChartModel
 {
@@ -24,6 +23,12 @@ class ColumnChartModel extends BaseChartModel
     public $onColumnClickEventName;
 
     public $data;
+
+    public $formatNumberX;
+
+    public $formatNumberY;
+
+    public $formatLableData;
 
     public function __construct()
     {
@@ -42,6 +47,37 @@ class ColumnChartModel extends BaseChartModel
         $this->isStacked = false;
 
         $this->data = collect();
+
+        $this->formatNumberX = false;
+        $this->formatNumberY = false;
+        $this->formatLableData = false;
+    }
+
+    public function formatNumberX($value = false)
+    {
+        $this->formatNumberX = $value;
+
+        $this->data = collect();
+
+        return $this;
+    }
+
+    public function formatNumberY($value = false)
+    {
+        $this->formatNumberY = $value;
+
+        $this->data = collect();
+
+        return $this;
+    }
+
+    public function formatDataLable($value = false)
+    {
+        $this->formatLableData = $value;
+
+        $this->data = collect();
+
+        return $this;
     }
 
     public function multiColumn()
@@ -131,6 +167,10 @@ class ColumnChartModel extends BaseChartModel
             'isMultiColumn' => $this->isMultiColumn,
             'isStacked' => $this->isStacked,
             'data' => $this->data->toArray(),
+            'config' => config('livewire-charts'),
+            'format-x' => $this->formatNumberX,
+            'format-y' => $this->formatNumberY,
+            'format-lable' => $this->formatLableData,
         ]);
     }
 
@@ -151,5 +191,9 @@ class ColumnChartModel extends BaseChartModel
         $this->isStacked = data_get($array, 'isStacked', false);
 
         $this->data = collect(data_get($array, 'data', []));
+
+        $this->formatNumberX = data_get($array, 'format-x', false);
+        $this->formatNumberY = data_get($array, 'format-y', false);
+        $this->formatNumberY = data_get($array, 'format-lable', false);
     }
 }
