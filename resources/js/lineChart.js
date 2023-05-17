@@ -21,6 +21,9 @@ const lineChart = () => {
             const onPointClickEventName = component.get('lineChartModel.onPointClickEventName');
             const sparkline = component.get('lineChartModel.sparkline');
             const config = component.get('lineChartModel.config');
+            const format_x = component.get('lineChartModel.format-x');
+            const format_y = component.get('lineChartModel.format-y');
+            const format_lable = component.get('lineChartModel.format-lable');
 
             const series = [{
                 name: title,
@@ -41,14 +44,14 @@ const lineChart = () => {
 
                     ...sparkline,
 
-                    zoom: { enabled: false },
+                    zoom: {enabled: false},
 
-                    toolbar: { show: false },
+                    toolbar: {show: false},
 
-                    animations: { enabled: animated },
+                    animations: {enabled: animated},
 
                     events: {
-                        markerClick: function(event, chartContext, { dataPointIndex }) {
+                        markerClick: function (event, chartContext, {dataPointIndex}) {
                             if (!onPointClickEventName) {
                                 return
                             }
@@ -77,36 +80,64 @@ const lineChart = () => {
 
                 annotations: {
                     points: component.get('lineChartModel.markers').map(item => {
-                            return {
-                                x: item.title,
-                                y: item.value,
-                                marker: {
-                                    size: 6,
-                                    fillColor: '#fff',
-                                    strokeColor: item.strokeColor,
-                                    radius: 2,
+                        return {
+                            x: item.title,
+                            y: item.value,
+                            marker: {
+                                size: 6,
+                                fillColor: '#fff',
+                                strokeColor: item.strokeColor,
+                                radius: 2,
+                            },
+                            label: {
+                                offsetY: 0,
+                                style: {
+                                    color: item.textColor,
+                                    background: item.textBackgroundColor,
                                 },
-                                label: {
-                                    offsetY: 0,
-                                    style: {
-                                        color: item.textColor,
-                                        background: item.textBackgroundColor,
-                                    },
-                                    text: item.text || '',
-                                }
+                                text: item.text || '',
                             }
                         }
+                    }
                     )
                 },
 
                 tooltip: {
                     y: {
-                        formatter: function(value, series) {
+                        formatter: function (value, series) {
                             return data[series.dataPointIndex].extras.tooltip || value;
                         }
                     }
                 },
             };
+
+            const colors = component.get('lineChartModel.colors');
+
+            if (colors && colors.length > 0) {
+                options['colors'] = colors
+            }
+
+            if (format_x) {
+                options['xaxis']['labels'] = {
+                    formatter: function (value) {
+                        return number_format(value);
+                    }
+                }
+            }
+
+            if (format_y) {
+                options['yaxis']['labels'] = {
+                    formatter: function (value) {
+                        return number_format(value);
+                    }
+                }
+            }
+
+            if (format_lable) {
+                options['dataLabels']['formatter'] = function (value, opts) {
+                    return number_format(value);
+                }
+            }
 
             this.chart = new ApexCharts(this.$refs.container, options);
             this.chart.render();
