@@ -39,7 +39,7 @@ const multiColumnChart = () => {
             const categories = component.get('columnChartModel.xAxis.categories').length > 0
                 ? component.get('columnChartModel.xAxis.categories')
                 : data[series[0].name].map(item => item.title)
-            ;
+                ;
 
             const options = {
                 series: series,
@@ -52,12 +52,12 @@ const multiColumnChart = () => {
 
                     ...sparkline,
 
-                    toolbar: { show: false },
+                    toolbar: {show: false},
 
-                    animations: { enabled: animated },
+                    animations: {enabled: animated},
 
                     events: {
-                        dataPointSelection: function(event, chartContext, {seriesIndex, dataPointIndex}) {
+                        dataPointSelection: function (event, chartContext, {seriesIndex, dataPointIndex}) {
                             if (!onColumnClickEventName) {
                                 return
                             }
@@ -94,14 +94,16 @@ const multiColumnChart = () => {
                 fill: {
                     opacity: component.get('columnChartModel.opacity'),
                 },
-
                 tooltip: {
                     y: {
-                        formatter: function(value, s) {
+                        formatter: function (value, s) {
                             return component.get('columnChartModel.data')[series[s.seriesIndex].name][s.dataPointIndex].extras.formatted || value;
                         }
                     }
-                }
+                },
+
+                theme: component.get('columnChartModel.theme') || {},
+
             };
 
             const colors = component.get('columnChartModel.colors');
@@ -110,7 +112,7 @@ const multiColumnChart = () => {
                 options['colors'] = colors
             }
 
-            if(format_x) {
+            if (format_x) {
                 options['xaxis']['labels'] = {
                     formatter: function (value) {
                         return number_format(value);
@@ -118,7 +120,7 @@ const multiColumnChart = () => {
                 }
             }
 
-            if(format_y) {
+            if (format_y) {
                 options['yaxis']['labels'] = {
                     formatter: function (value) {
                         return number_format(value);
@@ -126,7 +128,7 @@ const multiColumnChart = () => {
                 }
             }
 
-            if(format_lable) {
+            if (format_lable) {
                 options['dataLabels']['formatter'] = function (value, opts) {
                     return number_format(value);
                 }
