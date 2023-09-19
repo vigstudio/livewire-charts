@@ -46,14 +46,14 @@ const multiLineChart = () => {
 
                     ...sparkline,
 
-                    zoom: { enabled: false },
+                    zoom: {enabled: false},
 
-                    toolbar: { show: false },
+                    toolbar: {show: false},
 
-                    animations: { enabled: animated },
+                    animations: {enabled: animated},
 
                     events: {
-                        markerClick: function(event, chartContext, { seriesIndex, dataPointIndex }) {
+                        markerClick: function (event, chartContext, {seriesIndex, dataPointIndex}) {
                             if (!onPointClickEventName) {
                                 return
                             }
@@ -79,14 +79,14 @@ const multiLineChart = () => {
                 },
 
                 yaxis: component.get('lineChartModel.yAxis') || {},
-
                 tooltip: {
                     y: {
-                        formatter: function(value, s) {
+                        formatter: function (value, s) {
                             return component.get('lineChartModel.data')[series[s.seriesIndex].name][s.dataPointIndex].extras.formatted || value;
                         }
                     }
-                }
+                },
+                theme: component.get('lineChartModel.theme') || {},
             };
 
             const colors = component.get('lineChartModel.colors');
@@ -95,7 +95,7 @@ const multiLineChart = () => {
                 options['colors'] = colors
             }
 
-            if(format_x) {
+            if (format_x) {
                 options['xaxis']['labels'] = {
                     formatter: function (value) {
                         return number_format(value);
@@ -103,7 +103,7 @@ const multiLineChart = () => {
                 }
             }
 
-            if(format_y) {
+            if (format_y) {
                 options['yaxis']['labels'] = {
                     formatter: function (value) {
                         return number_format(value);
@@ -111,7 +111,7 @@ const multiLineChart = () => {
                 }
             }
 
-            if(format_lable) {
+            if (format_lable) {
                 options['dataLabels']['formatter'] = function (value, opts) {
                     return number_format(value);
                 }

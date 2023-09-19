@@ -34,9 +34,9 @@ const treeMapChart = () => {
             const options = {
                 series: series,
 
-                legend: { show: false },
+                legend: {show: false},
 
-                title: { text: title },
+                title: {text: title},
 
                 chart: {
                     height: '100%',
@@ -47,14 +47,14 @@ const treeMapChart = () => {
                     animations: {enabled: animated},
 
                     events: {
-                        click: function(event, chartContext, {seriesIndex, dataPointIndex}) {
+                        click: function (event, chartContext, {seriesIndex, dataPointIndex}) {
                             if (!onBlockClickEventName) {
                                 return
                             }
 
                             const block = data[series[seriesIndex].name][dataPointIndex]
 
-                            component.emit(onBlockClickEventName, block)
+                            component.call('onBlockClick', block)
                         },
                     }
                 },

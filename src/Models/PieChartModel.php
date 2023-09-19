@@ -7,13 +7,13 @@ namespace Asantibanez\LivewireCharts\Models;
  */
 class PieChartModel extends BaseChartModel
 {
-    public $onSliceClickEventName;
+    private $onSliceClickEventName;
 
-    public $opacity;
+    private $opacity;
 
-    public $type;
+    private $type;
 
-    public $data;
+    private $data;
 
     public function __construct()
     {
@@ -40,6 +40,16 @@ class PieChartModel extends BaseChartModel
         $this->type = $type;
 
         return $this;
+    }
+
+    public function asPie()
+    {
+        return $this->setType('pie');
+    }
+
+    public function asDonut()
+    {
+        return $this->setType('donut');
     }
 
     public function withOnSliceClickEvent($onSliceClickEventName)
